@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import {CountProvider, useCount} from './count-context';
+
+function Counter() {
+  const {count, increment} = useCount();
+
+  return <button onClick={increment}>{count}</button>
+}
+
+function CountDisplay() {
+  const {count} = useCount();
+  return <div> The current counter count is {count}</div>
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CountProvider>
+      <CountDisplay/>
+      <Counter />
+    </CountProvider>
   );
 }
 
 export default App;
+
+// function Counter({count, onIncrementClick}) {
+//   return <button onClick={onIncrementClick}>{count}</button>
+// }
+
+// function CountDisplay({count}) {
+//   return <div> The current counter count is {count}</div>
+// }
+
+// function App() {
+//   const [count, setCount] = React.useState(0);
+//   const increment = () => setCount(c=>c+1);
+//   return (
+//     <div>
+//       <CountDisplay count={count}/>
+//       <Counter count={count} onIncrementClick={increment}/>
+//     </div>
+//   );
+// }
